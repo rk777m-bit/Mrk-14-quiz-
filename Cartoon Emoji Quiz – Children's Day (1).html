@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cartoon Emoji Quiz – Children’s Day Special</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#ffe9a8;--bg2:#ffb3d1;--bg3:#a8d8ff;--card:#ffffffee;--ink:#2b2350;--soft:#6b6390;--accent:#ff5c8a;--accent2:#7c5cff;--good:#22b573;--bad:#ef4b5f;--shadow:0 10px 30px #5b3ea633;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#2a1b4d;--bg2:#4a1d5e;--bg3:#12315e;--card:#241a45ee;--ink:#fff6e5;--soft:#bdb2e6;--shadow:0 10px 30px #0008}}
+:root[data-theme="dark"]{--bg1:#2a1b4d;--bg2:#4a1d5e;--bg3:#12315e;--card:#241a45ee;--ink:#fff6e5;--soft:#bdb2e6;--shadow:0 10px 30px #0008}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:"Baloo 2","Trebuchet MS",system-ui,sans-serif;color:var(--ink);background:linear-gradient(135deg,var(--bg1),var(--bg2) 55%,var(--bg3));background-attachment:fixed;display:flex;justify-content:center;overflow-x:hidden}
+.bg{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.bg span{position:absolute;font-size:2rem;opacity:.35;animation:float linear infinite}
+@keyframes float{from{transform:translateY(110vh) rotate(0)}to{transform:translateY(-20vh) rotate(360deg)}}
+main{position:relative;z-index:1;width:100%;max-width:520px;padding:18px 14px 30px}
+.card{background:var(--card);border-radius:28px;padding:20px;box-shadow:var(--shadow);backdrop-filter:blur(6px);border:3px solid #fff8}
+h1{font-size:2rem;line-height:1.05;margin:6px 0;text-align:center;font-weight:800}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{text-align:center;color:var(--soft);margin:0 0 14px}
+.hero{font-size:3.6rem;text-align:center;letter-spacing:6px;animation:bob 2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(-3deg)}}
+input{width:100%;padding:13px 16px;border-radius:16px;border:3px solid var(--accent2);font:inherit;font-size:1.1rem;background:transparent;color:var(--ink);margin:12px 0;text-align:center}
+.btn{display:block;width:100%;border:0;border-radius:18px;padding:14px;font:inherit;font-size:1.2rem;font-weight:800;color:#fff;background:linear-gradient(90deg,var(--accent),var(--accent2));box-shadow:0 6px 0 #4a2fb5;cursor:pointer;transition:transform .1s}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 #4a2fb5}
+.hud{display:flex;justify-content:space-between;align-items:center;font-weight:700;margin-bottom:8px;gap:6px}
+.pill{background:var(--bg1);color:#2b2350;padding:3px 12px;border-radius:99px;font-size:.95rem}
+.bar{height:12px;border-radius:9px;background:#0002;overflow:hidden;margin-bottom:14px}
+.bar i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--good),#ffd23f,var(--bad));background-size:300% 100%;transform-origin:left;transition:width .1s linear}
+.stage{background:linear-gradient(160deg,#fff6,#fff1);border-radius:24px;padding:18px 8px;text-align:center;font-size:4.2rem;letter-spacing:8px;margin-bottom:6px;border:3px dashed var(--accent2);min-height:130px;display:flex;align-items:center;justify-content:center;animation:pop .45s}
+@keyframes pop{from{transform:scale(.6) rotate(-6deg);opacity:0}}
+.q{text-align:center;color:var(--soft);margin:0 0 10px;font-weight:600}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{border:3px solid var(--accent2);background:transparent;color:var(--ink);border-radius:16px;padding:12px 6px;font:inherit;font-weight:700;font-size:1rem;cursor:pointer;transition:.15s;min-height:56px}
+.opt:hover{background:#7c5cff22}
+.opt.good{background:var(--good);border-color:var(--good);color:#fff;animation:pop .4s}
+.opt.bad{background:var(--bad);border-color:var(--bad);color:#fff;animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.msg{text-align:center;min-height:30px;font-weight:800;font-size:1.1rem;margin:10px 0 0}
+.hint{display:block;margin:10px auto 0;background:none;border:0;color:var(--accent2);font:inherit;font-weight:700;cursor:pointer;text-decoration:underline}
+.cert{border:6px double var(--accent);border-radius:22px;padding:20px 12px;text-align:center;background:linear-gradient(160deg,#fff9,#ffe9a855)}
+.cert h2{margin:4px 0;font-size:1.5rem}
+.cert .nm{font-size:2rem;font-weight:800;color:var(--accent);word-break:break-word}
+.cert .sc{font-size:3rem;font-weight:800}
+.hide{display:none}
+.conf{position:fixed;top:-40px;font-size:1.6rem;z-index:5;pointer-events:none;animation:fall 2s ease-in forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg);opacity:.8}}
+.small{font-size:.85rem;color:var(--soft);text-align:center;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="bg" id="bg"></div>
+<main>
+ <section class="card" id="start">
+  <div class="hero">🦁👑</div>
+  <h1>Cartoon <em>Emoji Quiz</em></h1>
+  <p class="sub">🎈 Happy Children’s Day! Guess the cartoon from the emoji clues. 10 rounds, 15 seconds each.</p>
+  <input id="name" placeholder="Type your name" maxlength="24" autocomplete="off">
+  <button class="btn" id="go">Let’s Play! 🚀</button>
+  <p class="small">Faster answers = more points. Streaks give bonus stars ⭐</p>
+ </section>
+
+ <section class="card hide" id="game">
+  <div class="hud"><span class="pill" id="rd">Round 1/10</span><span class="pill" id="st">🔥 0</span><span class="pill" id="sc">⭐ 0</span></div>
+  <div class="bar"><i id="tm"></i></div>
+  <div class="stage" id="clue"></div>
+  <p class="q">Which cartoon character is this?</p>
+  <div class="opts" id="opts"></div>
+  <div class="msg" id="msg"></div>
+  <button class="hint" id="hint">💡 Hint (−3 points)</button>
+ </section>
+
+ <section class="card hide" id="end">
+  <div class="cert">
+   <div style="font-size:2.6rem">🏆🎈🎉</div>
+   <h2>Super Kid Certificate</h2>
+   <p class="sub" style="margin:2px">This is proudly awarded to</p>
+   <div class="nm" id="cn"></div>
+   <p class="sub" style="margin:4px">for scoring</p>
+   <div class="sc" id="cs"></div>
+   <p id="cr" style="font-weight:700;margin:4px"></p>
+   <p class="small">Children’s Day · 14 November<br>EnglishWithMRK</p>
+  </div>
+  <p class="small">📸 Take a screenshot and share it with <b>#MyChildrensDay</b></p>
+  <button class="btn" id="again" style="margin-top:12px">Play Again 🔄</button>
+ </section>
+</main>
+<script>
+const POOL=[
+["🦁👑🌅","Simba","The Lion King","Lion cub who becomes king"],
+["🕷️🧑🏙️","Spider-Man","Marvel","Swings between buildings"],
+["🐱🐭🏃","Tom and Jerry","Classic cartoon","A cat chases a clever mouse"],
+["❄️👸⛄","Elsa","Frozen","Let it go!"],
+["🐼🥋🍜","Po","Kung Fu Panda","The Dragon Warrior loves noodles"],
+["🧽🍍🦀","SpongeBob","Bikini Bottom","Lives in a pineapple under the sea"],
+["🐠🔍🌊","Nemo","Finding Nemo","A little clownfish who got lost"],
+["🦇🌃🧑","Batman","Gotham City","The Dark Knight"],
+["🧞🪔🐒","Aladdin","Arabian nights","Has a magic lamp"],
+["🐻🍯🎈","Winnie the Pooh","Hundred Acre Wood","Loves honey"],
+["⚡👓🧙","Harry Potter","Hogwarts","The boy who lived"],
+["🤖🌱❤️","WALL-E","Pixar robot","Tiny trash-collecting robot"],
+["🐱🤖🔔","Doraemon","From the future","Has a pocket full of gadgets"],
+["🧒💪🍡","Chhota Bheem","Dholakpur","Gets super power from laddoos"],
+["🧒🩲🖍️","Shinchan","Crayon boy","Cheeky five-year-old"],
+["🐒🏹🧎","Hanuman","Indian hero","Strong and devoted"],
+["🧸🐻🍯🌳","Baloo","The Jungle Book","Sings about bare necessities"],
+["🐘🪽👂","Dumbo","Flying elephant","Uses big ears to fly"],
+["🧒🐺🌴","Mowgli","The Jungle Book","Raised by wolves"],
+["🍔🍟🧽","SpongeBob","Krusty Krab cook","Flips burgers"]
+].slice(0,19);
+const ALLN=[...new Set(POOL.map(p=>p[1]))];
+const $=id=>document.getElementById(id);
+let Q,i,score,streak,left,timer,locked,hintUsed,name,okCount;
+const shuffle=a=>{a=[...a];for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a};
+// floating background emojis
+(function(){const e=["🎈","⭐","🧸","🎨","🚀","🍭","🎠","🪁","🌈","🎂"];let h="";
+for(let k=0;k<16;k++)h+=`<span style="left:${Math.random()*95}%;animation-duration:${12+Math.random()*14}s;animation-delay:-${Math.random()*20}s">${e[k%e.length]}</span>`;
+$("bg").innerHTML=h})();
+function show(id){["start","game","end"].forEach(s=>$(s).classList.toggle("hide",s!==id))}
+function start(){
+ name=$("name").value.trim()||"Super Kid";
+ const seen=new Set();Q=[];
+ shuffle(POOL).forEach(p=>{if(!seen.has(p[1])&&Q.length<10){seen.add(p[1]);Q.push(p)}});
+ i=0;score=0;streak=0;okCount=0;show("game");next();
+}
+function next(){
+ if(i>=Q.length)return finish();
+ const p=Q[i];locked=false;hintUsed=false;left=15;
+ $("rd").textContent=`Round ${i+1}/${Q.length}`;
+ $("st").textContent="🔥 "+streak;$("sc").textContent="⭐ "+score;
+ $("clue").textContent=p[0];$("clue").style.animation="none";void $("clue").offsetWidth;$("clue").style.animation="";
+ $("msg").textContent="";$("hint").style.display="block";
+ const wrong=shuffle(ALLN.filter(n=>n!==p[1])).slice(0,3);
+ $("opts").innerHTML="";
+ shuffle([p[1],...wrong]).forEach(n=>{const b=document.createElement("button");b.className="opt";b.textContent=n;b.onclick=()=>pick(b,n);$("opts").appendChild(b)});
+ clearInterval(timer);
+ timer=setInterval(()=>{left-=.1;$("tm").style.width=Math.max(0,left/15*100)+"%";if(left<=0){clearInterval(timer);pick(null,null)}},100);
+}
+function pick(btn,n){
+ if(locked)return;locked=true;clearInterval(timer);
+ const p=Q[i];const ok=n===p[1];
+ [...$("opts").children].forEach(b=>{if(b.textContent===p[1])b.classList.add("good")});
+ if(ok){
+  okCount++;streak++;
+  const pts=10+Math.round(left/3)+(streak>=3?5:0)-(hintUsed?3:0);score+=Math.max(pts,5);
+  $("msg").textContent=["🎉 Awesome!","🌟 Super!","👏 Brilliant!","🔥 You’re on fire!"][Math.floor(Math.random()*4)]+" "+p[2];
+  confetti();
+ }else{
+  streak=0;if(btn)btn.classList.add("bad");
+  $("msg").textContent=(n===null?"⏰ Time’s up! ":"😅 Oops! ")+"It was "+p[1]+" · "+p[2];
+ }
+ $("st").textContent="🔥 "+streak;$("sc").textContent="⭐ "+score;$("hint").style.display="none";
+ setTimeout(()=>{i++;next()},1900);
+}
+function confetti(){
+ const e=["🎉","⭐","🎈","✨","🍬","🌈"];
+ for(let k=0;k<22;k++){const s=document.createElement("div");s.className="conf";s.textContent=e[k%e.length];
+  s.style.left=Math.random()*95+"%";s.style.animationDelay=Math.random()*.4+"s";document.body.appendChild(s);setTimeout(()=>s.remove(),2600)}
+}
+function finish(){
+ show("end");$("cn").textContent=name;$("cs").textContent=score+" points";
+ const r=okCount>=9?"🌟 Cartoon Genius! ("+okCount+"/10)":okCount>=6?"😎 Cartoon Expert! ("+okCount+"/10)":okCount>=3?"🙂 Cartoon Fan! ("+okCount+"/10)":"🌱 Keep watching cartoons! ("+okCount+"/10)";
+ $("cr").textContent=r;
+ for(let k=0;k<3;k++)setTimeout(confetti,k*500);
+}
+$("go").onclick=start;
+$("again").onclick=()=>show("start");
+$("name").addEventListener("keydown",e=>{if(e.key==="Enter")start()});
+$("hint").onclick=()=>{if(locked||hintUsed)return;hintUsed=true;$("msg").textContent="💡 "+Q[i][3]};
+</script>
+</body>
+</html>
